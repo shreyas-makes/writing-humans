@@ -55,7 +55,7 @@ export function MarkerDot({ suggestion, editor, onDelete }: MarkerDotProps) {
             aria-label={`Suggestion from ${suggestion.daemon}`}
           />
         </PopoverTrigger>
-        <PopoverContent className="w-80 ml-6">
+        <PopoverContent className="w-80 -ml-2">
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <Badge className={getDaemonColor(suggestion.daemon)}>{suggestion.daemon}</Badge>

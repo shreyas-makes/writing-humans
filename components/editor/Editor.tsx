@@ -291,8 +291,8 @@ export function Editor({ initialContent, onUpdate, documentId }: EditorProps) {
         />
       )}
 
-      {/* Right margin for bookmark markers */}
-      <div className="absolute right-0 top-0 w-8 h-full">
+      {/* Right margin for bookmark markers - positioned fully outside the page */}
+      <div className="absolute -right-16 top-0 w-8 h-full">
         {bookmarkedSuggestions.map((suggestion) => (
           <MarkerDot
             key={suggestion.id}

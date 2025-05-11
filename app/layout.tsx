@@ -1,12 +1,14 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+        // The Inter font import is removed as we are switching to system fonts.
+// System UI will be applied via a CSS class with Verdana as fallback.
+// Class defined in globals.css with font-family: system-ui, Verdana, sans-serif;
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
 import { AuthProvider } from "@/components/auth/auth-provider"
 
-const inter = Inter({ subsets: ["latin"] })
+const systemFont = { className: "font-system" }
 
 export const metadata: Metadata = {
   title: "Daemon Writer - Human-First Writing",
@@ -20,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={systemFont.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthProvider>
             {children}
