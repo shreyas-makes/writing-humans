@@ -1,11 +1,12 @@
 "use client"
 
-import { useEditor, EditorContent } from "@tiptap/react"
+import { useEditor, EditorContent, Editor as TiptapEditor } from "@tiptap/react"
 import { useCallback, useEffect, useState } from "react"
 import { extensions } from "./tiptap-extensions"
 import { DaemonPopover } from "./daemon-popover"
 import { CommandMenu } from "./CommandMenu"
 import { MarkerDot } from "./marker-dot"
+import { FormattingToolbar } from "./FormattingToolbar"
 import { getSupabaseClient } from "@/lib/supabase-client"
 import { generateDaemonSuggestion } from "@/lib/ai/daemons"
 import type { Suggestion } from "@/lib/types"
@@ -15,9 +16,10 @@ interface EditorProps {
   initialContent: string
   onUpdate: (content: string) => void
   documentId: string
+  onEditorLoad?: (editor: TiptapEditor | null) => void;
 }
 
-export function Editor({ initialContent, onUpdate, documentId }: EditorProps) {
+export function Editor({ initialContent, onUpdate, documentId, onEditorLoad }: EditorProps) {
   const supabase = getSupabaseClient()
   const { toast } = useToast()
   const [selectedText, setSelectedText] = useState("")
@@ -257,12 +259,21 @@ export function Editor({ initialContent, onUpdate, documentId }: EditorProps) {
     [supabase, bookmarkedSuggestions, toast],
   )
 
+  useEffect(() => {
+    if (editor && onEditorLoad) {
+      onEditorLoad(editor);
+    }
+  }, [editor, onEditorLoad]);
+
   if (!editor) {
     return null
   }
 
   return (
-    <div className="relative min-h-[85vh]">
+    <div className="relative min-h-[85vh] bg-white text-[#1F2937]">
+      {/* Formatting Toolbar - Keep it here and make it sticky */}
+      
+
       {/* Editor content */}
       <div>
         <EditorContent editor={editor} className="max-w-none focus:outline-none [&_p]:outline-none [&_p]:pl-0" />

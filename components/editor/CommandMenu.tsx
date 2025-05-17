@@ -43,8 +43,8 @@ export function CommandMenu({ position, onSelect, onClose }: CommandMenuProps) {
         top: `${position.y}px`,
       }}
     >
-      <Command className="rounded-lg border shadow-md">
-        <CommandInput placeholder="Type a command..." />
+      <Command className="rounded-lg border shadow-md bg-white text-[#1F2937]">
+        <CommandInput placeholder="Type a command..." className="text-[#1F2937]" />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Formatting">
@@ -55,6 +55,7 @@ export function CommandMenu({ position, onSelect, onClose }: CommandMenuProps) {
                   onSelect(command.value)
                   onClose()
                 }}
+                className="aria-selected:bg-[#3B82F6] aria-selected:text-white"
               >
                 {command.label}
               </CommandItem>

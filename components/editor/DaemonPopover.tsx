@@ -43,7 +43,9 @@ export function DaemonPopover({
   }
 
   const getDaemonColor = (daemon: string) => {
-    return DAEMONS.find((d) => d.name === daemon)?.color || "bg-gray-500"
+    // We will use a consistent style instead of daemon-specific colors for now.
+    // return DAEMONS.find((d) => d.name === daemon)?.color || "bg-gray-500"
+    return "bg-[#3B82F6] text-white" // Use soft blue for active daemon badge
   }
 
   return (
@@ -58,7 +60,7 @@ export function DaemonPopover({
         <PopoverTrigger asChild>
           <Button variant="outline" className="h-0 w-0 p-0 m-0 border-none" />
         </PopoverTrigger>
-        <PopoverContent className="w-80">
+        <PopoverContent className="w-80 bg-white text-[#1F2937]">
           {!activeDaemon ? (
             <div className="space-y-2">
               <p className="text-sm font-medium mb-2">Choose a daemon:</p>
@@ -66,14 +68,14 @@ export function DaemonPopover({
                 {DAEMONS.map((daemon) => (
                   <Badge
                     key={daemon.name}
-                    className={`cursor-pointer ${daemon.color} hover:${daemon.color} hover:opacity-90`}
+                    className={`cursor-pointer bg-gray-200 text-[#1F2937] hover:bg-[#3B82F6] hover:text-white`}
                     onClick={() => onDaemonSelect(daemon.name)}
                   >
                     {daemon.name}
                   </Badge>
                 ))}
               </div>
-              <Button variant="ghost" size="sm" className="mt-2" onClick={handleClose}>
+              <Button variant="ghost" size="sm" className="mt-2 text-[#3B82F6] hover:bg-[#3B82F6]/10" onClick={handleClose}>
                 Cancel
               </Button>
             </div>
@@ -88,11 +90,12 @@ export function DaemonPopover({
                 <>
                   <p className="text-sm">{suggestion}</p>
                   <div className="flex justify-end gap-2 mt-2">
-                    <Button variant="outline" size="sm" onClick={handleClose}>
+                    <Button variant="outline" size="sm" className="border-[#3B82F6] text-[#3B82F6] hover:bg-[#3B82F6]/10" onClick={handleClose}>
                       Dismiss
                     </Button>
                     <Button
                       size="sm"
+                      className="bg-[#3B82F6] hover:bg-[#3B82F6]/90 text-white"
                       onClick={() => {
                         onBookmark()
                         handleClose()

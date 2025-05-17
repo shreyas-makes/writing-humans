@@ -18,14 +18,8 @@ export function MarkerDot({ suggestion, editor, onDelete }: MarkerDotProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   const getDaemonColor = (daemon: string) => {
-    const colors: Record<string, string> = {
-      "Devil's Advocate": "bg-indigo-500",
-      Synthesizer: "bg-emerald-500",
-      Complimenter: "bg-amber-500",
-      Elaborator: "bg-sky-500",
-      Researcher: "bg-rose-500",
-    }
-    return colors[daemon] || "bg-gray-500"
+    // Use soft blue for consistency instead of daemon-specific colors
+    return "bg-[#3B82F6] text-white"
   }
 
   // Calculate position based on paragraph and offset
@@ -50,21 +44,25 @@ export function MarkerDot({ suggestion, editor, onDelete }: MarkerDotProps) {
     <div className="absolute left-2" style={{ top: `${position.top}px` }}>
       <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger asChild>
+          {/* Style marker dot with soft blue */}
           <button
-            className={`h-3 w-3 rounded-full ${getDaemonColor(suggestion.daemon)} hover:opacity-80`}
+            className={`h-3 w-3 rounded-full bg-[#3B82F6] hover:opacity-80`}
             aria-label={`Suggestion from ${suggestion.daemon}`}
           />
         </PopoverTrigger>
-        <PopoverContent className="w-80 ml-6">
+        {/* Apply light gray background and dark gray text to popover content */}
+        <PopoverContent className="w-80 ml-6 bg-[#F9FAFB] text-[#1F2937]">
           <div className="space-y-2">
             <div className="flex items-center justify-between">
+              {/* Daemon badge uses soft blue */} {/* Applied via getDaemonColor */}
               <Badge className={getDaemonColor(suggestion.daemon)}>{suggestion.daemon}</Badge>
-              <Button variant="ghost" size="sm" className="h-6 w-6 p-0" onClick={onDelete}>
-                <X className="h-4 w-4" />
+              {/* Style delete button with subtle red icon */} {/* Use a neutral background/hover */} 
+              <Button variant="ghost" size="sm" className="h-6 w-6 p-0 hover:bg-gray-300" onClick={onDelete}>
+                <X className="h-4 w-4 text-red-500" />
               </Button>
             </div>
             <p className="text-sm font-medium">Selected text:</p>
-            <p className="text-sm italic bg-muted p-2 rounded">{suggestion.text}</p>
+            <p className="text-sm italic bg-gray-200 p-2 rounded">{suggestion.text}</p>
             <p className="text-sm font-medium">Suggestion:</p>
             <p className="text-sm">{suggestion.suggestion}</p>
           </div>
