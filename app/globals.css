@@ -129,6 +129,7 @@
 /* Editor styles */
 .ProseMirror {
   @apply outline-none w-full;
+  font-family: Arial, sans-serif;
 }
 
 .ProseMirror p {
